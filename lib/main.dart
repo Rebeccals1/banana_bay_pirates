@@ -1,0 +1,15 @@
+import 'package:flame/flame.dart';
+import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'banana_bay_pirates.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Flame.device.fullScreen();
+  await Flame.device.setLandscape();
+
+  BananaBayPirates game = BananaBayPirates();
+  runApp(GameWidget(game: kDebugMode ? BananaBayPirates() : game));
+
+}

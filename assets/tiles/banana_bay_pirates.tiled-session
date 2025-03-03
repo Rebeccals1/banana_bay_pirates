@@ -1,0 +1,44 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level-01.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Brittle Bay Shores.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level-01.tmx": {
+            "scale": 1.1708007812499999,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 500.9391942614062,
+                "y": 384.35232296271585
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/Rebecca/Desktop/BananaBayPirates/assets/images/terrain",
+    "map.height": 48,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 64,
+    "openFiles": [
+        "Brittle Bay Shores.tsx",
+        "level-01.tmx"
+    ],
+    "project": "banana_bay_pirates.tiled-project",
+    "recentFiles": [
+        "Brittle Bay Shores.tsx",
+        "level-01.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
