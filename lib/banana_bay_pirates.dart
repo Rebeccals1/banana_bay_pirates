@@ -14,36 +14,41 @@ class BananaBayPirates extends FlameGame with HasKeyboardHandlerComponents, Drag
   late final CameraComponent cam;
   Player player = Player(character: 'anne');
   late JoystickComponent joystick;
+  bool showJoystick = true;
 
   // Important onLoad Method
   @override
   FutureOr<void> onLoad() async{
     // Load all images into cache
     await images.loadAllImages();
-
     // Initiate world and player position variable
     @override
     final world = Level(
       levelName: 'level-01',
       player: player,
     );
-
     // Initialize the camera AFTER loading assets
     cam = CameraComponent.withFixedResolution(world: world, width: 1024, height: 768);
-
     cam.viewfinder.anchor = Anchor.topLeft;
-    // Ensure 'world' is added to the game
+    // cam and world added to game
     addAll([cam, world]);
-    addJoystick();
+    // Check for mobile joytick
+    if(showJoystick){
+      addJoystick();
+    }
     return super.onLoad();
   }
 
+  // Update joystick
   @override
   void update(double dt){
-    updateJoystick();
+    if(showJoystick) {
+      updateJoystick();
+    }
     super.update(dt);
   }
 
+  // Add mobile joytick
   void addJoystick() {
       joystick = JoystickComponent(
           knob: SpriteComponent(
@@ -64,33 +69,22 @@ class BananaBayPirates extends FlameGame with HasKeyboardHandlerComponents, Drag
 
   void updateJoystick() {
     switch(joystick.direction){
+      case JoystickDirection.idle:
       case JoystickDirection.up:
-        player.playerDirection = PlayerDirection.none;
-        break;
-      case JoystickDirection.upLeft:
-        player.playerDirection = PlayerDirection.left;
-        break;
-      case JoystickDirection.upRight:
-        player.playerDirection = PlayerDirection.right;
-        break;
-      case JoystickDirection.right:
-        player.playerDirection = PlayerDirection.right;
-        break;
       case JoystickDirection.down:
         player.playerDirection = PlayerDirection.none;
         break;
+      case JoystickDirection.right:
+      case JoystickDirection.upRight:
       case JoystickDirection.downRight:
         player.playerDirection = PlayerDirection.right;
         break;
+      case JoystickDirection.left:
+      case JoystickDirection.upLeft:
       case JoystickDirection.downLeft:
         player.playerDirection = PlayerDirection.left;
         break;
-      case JoystickDirection.left:
-        player.playerDirection = PlayerDirection.left;
-        break;
-      case JoystickDirection.idle:
-        player.playerDirection = PlayerDirection.none;
-        break;
+
     }
   }
 
