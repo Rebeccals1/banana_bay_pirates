@@ -1,14 +1,12 @@
 import 'dart:async';
+import 'package:banana_bay_pirates/utils/utils.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 import '../../banana_bay_pirates.dart';
+import '../level/collision_block.dart';
 
 enum PlayerState {
   idle, running
-}
-
-enum PlayerDirection {
-  left, right, none
 }
 
 class Player extends SpriteAnimationGroupComponent
@@ -19,10 +17,10 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation runningAnimation;
   final double stepTime = 0.2;
   Vector2 textureSize = Vector2(80, 80);
-  PlayerDirection playerDirection = PlayerDirection.none;
+  double horizontalMovement = 0;
   double moveSpeed = 100;
   Vector2 velocity = Vector2.zero();
-  bool isFacingRight = true;
+  List<CollisionBlock> collisionBlocks = [];
 
   // Constructor
   Player({position,
@@ -33,25 +31,18 @@ class Player extends SpriteAnimationGroupComponent
   @override
   FutureOr<void> onLoad() async{
     _loadAllAnimations();
+    debugMode = true;
     return super.onLoad();
   }
 
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    horizontalMovement = 0;
     final isLeftKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
     final isRightKeyPressed = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
-
-    print("Keys Pressed: $keysPressed");
-
-    if (isLeftKeyPressed && isRightKeyPressed) {
-      playerDirection = PlayerDirection.none;
-    } else if (isLeftKeyPressed) {
-      playerDirection = PlayerDirection.left;
-    } else if (isRightKeyPressed) {
-      playerDirection = PlayerDirection.right;
-    } else {
-      playerDirection = PlayerDirection.none;
-    }
+    // ternary if statement, -1 or 1 for true, 0 for false
+    horizontalMovement += isLeftKeyPressed ? -1 : 0;
+    horizontalMovement += isRightKeyPressed ? 1 : 0;
 
     return super.onKeyEvent(event, keysPressed);
   }
@@ -61,6 +52,8 @@ class Player extends SpriteAnimationGroupComponent
   @override
   void update(double dt) {
     _updatePlayerMovement(dt);
+    _updatePlayerState(dt);
+    _checkHorizontalCollisions();
     super.update(dt);
   }
 
@@ -89,37 +82,38 @@ class Player extends SpriteAnimationGroupComponent
     );
   }
 
+  void _updatePlayerState(double dt) {
+    PlayerState playerState = PlayerState.idle;
+    if(velocity.x < 0 && scale.x > 0){
+      flipHorizontallyAroundCenter();
+    }else if(velocity.x > 0 && scale.x < 0){
+      flipHorizontallyAroundCenter();
+    }
+
+    // Check if moving, set running
+    if (velocity.x > 0 || velocity.x < 0) playerState = PlayerState.running;
+
+    current = playerState;
+  }
+
   // Update Method
   // *********************
   void _updatePlayerMovement(double dt) {
-    double dirX = 0.0;
-    switch(playerDirection){
-      case PlayerDirection.left:
-        if(isFacingRight){
-          flipHorizontallyAroundCenter();
-          isFacingRight = false;
-        }
-        current = PlayerState.running;
-        dirX -= moveSpeed;
-        break;
-      case PlayerDirection.right:
-        if(!isFacingRight){
-          flipHorizontallyAroundCenter();
-          isFacingRight = true;
-        }
-        current = PlayerState.running;
-        dirX += moveSpeed;
-        break;
-      case PlayerDirection.none:
-        current = PlayerState.idle;
-        break;
-    }
-
-    velocity = Vector2(dirX, 0.0);
+    velocity.x = horizontalMovement * moveSpeed;
     position.x += velocity.x * dt;
   }
 
+  void _checkHorizontalCollisions() {
+    for(final block in collisionBlocks){
+      // handle collision
+      if(!block.isPlatform){
+        // 'this' being player
+        if(checkCollision(this, block)) {
 
+        }
+      }
+    }
+  }
 
 }
 

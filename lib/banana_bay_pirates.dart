@@ -10,11 +10,11 @@ import 'level/levels.dart';
 class BananaBayPirates extends FlameGame with HasKeyboardHandlerComponents, DragCallbacks {
 
   @override
-  Color backgroundColor() => const Color(0x002ba4a7);
+  Color backgroundColor() => const Color(0xD05B666E);
   late final CameraComponent cam;
   Player player = Player(character: 'anne');
   late JoystickComponent joystick;
-  bool showJoystick = true;
+  bool showJoystick = false;
 
   // Important onLoad Method
   @override
@@ -28,7 +28,7 @@ class BananaBayPirates extends FlameGame with HasKeyboardHandlerComponents, Drag
       player: player,
     );
     // Initialize the camera AFTER loading assets
-    cam = CameraComponent.withFixedResolution(world: world, width: 1024, height: 768);
+    cam = CameraComponent.withFixedResolution(world: world, width: 704, height: 368);
     cam.viewfinder.anchor = Anchor.topLeft;
     // cam and world added to game
     addAll([cam, world]);
@@ -72,19 +72,18 @@ class BananaBayPirates extends FlameGame with HasKeyboardHandlerComponents, Drag
       case JoystickDirection.idle:
       case JoystickDirection.up:
       case JoystickDirection.down:
-        player.playerDirection = PlayerDirection.none;
+        player.horizontalMovement = 0;
         break;
       case JoystickDirection.right:
       case JoystickDirection.upRight:
       case JoystickDirection.downRight:
-        player.playerDirection = PlayerDirection.right;
+        player.horizontalMovement = 1;
         break;
       case JoystickDirection.left:
       case JoystickDirection.upLeft:
       case JoystickDirection.downLeft:
-        player.playerDirection = PlayerDirection.left;
+        player.horizontalMovement = -1;
         break;
-
     }
   }
 
