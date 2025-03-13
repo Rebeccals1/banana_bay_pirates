@@ -29,6 +29,7 @@ class BananaBayPirates extends FlameGame with HasKeyboardHandlerComponents, Drag
     );
     // Initialize the camera AFTER loading assets
     cam = CameraComponent.withFixedResolution(world: world, width: 704, height: 368);
+
     cam.viewfinder.anchor = Anchor.topLeft;
     // cam and world added to game
     addAll([cam, world]);
