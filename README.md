@@ -6,12 +6,10 @@
 
 ## 🚀 Features
 
-- 🌊 **Endless Runner Mechanics** – Play endlessly with increasing difficulty
-- 🏆 **Score Tracking** – Compete against your own scores or as a guest
-- 🔐 **Firebase Authentication** – Login via Google or continue as a guest
-- 📊 **Leaderboard (Coming Soon)** – Global leaderboard to show top pirates
-- 💥 **Obstacles and Power-Ups** – Navigate cannonballs, whirlpools, and more!
-- 🎮 **Smooth Controls** – Swipe and tap your way through the open sea
+- **Endless Runner Mechanics** – Play endlessly with increasing difficulty
+- **Score Tracking** – Compete against your own scores or as a guest
+- **Firebase Authentication** – Login via Google or continue as a guest
+- **Leaderboard** – Global leaderboard to show top pirates
 
 ## 📱 Tech Stack
 
@@ -53,43 +51,13 @@ Before running the app, set up Firebase for Android and iOS:
 - Enable **Authentication** (Google Sign-In & Anonymous)
 - Configure Firestore for saving scores and user data
 
-## 📂 Project Structure
-
-```
-lib/
-├── main.dart
-├── screens/
-│   ├── home_screen.dart
-│   ├── game_screen.dart
-│   └── leaderboard_screen.dart
-├── widgets/
-│   └── pirate_controls.dart
-├── services/
-│   └── firebase_auth_service.dart
-├── models/
-│   └── player_score.dart
-```
-
 ## 💡 Roadmap
 
 - [x] Add Firebase Authentication (Google + Guest)
 - [x] Implement endless runner logic
+- [x] Global leaderboard integration
 - [ ] Add pirate-themed music and sound effects
-- [ ] Global leaderboard integration
-- [ ] Skins and customizations for your pirate ship
-- [ ] Multiplayer challenge mode
-
-## 🏴‍☠️ Meet the Crew
-
-**Rebecca L. Smith**  
-🎓 Computer Science Major at Cal Poly Pomona  
-🎮 Passionate about mobile games, UI/UX, and bringing ideas to life through code  
-
-[![LinkedIn](https://img.shields.io/badge/Rebecca_LinkedIn-blue?logo=linkedin)](https://www.linkedin.com/in/rebeccalsmithdev)
-
-## 🤝 Contributions
-
-Want to contribute a pirate skin or help with gameplay improvements? Pull requests are welcome! For major changes, please open an issue first to discuss your ideas.
+- [ ] Add Power-Ups
 
 ## 📜 License
 
