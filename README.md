@@ -57,8 +57,8 @@ Before running the app, set up Firebase for Android and iOS:
 - [x] Add Firebase Authentication (Google + Guest)
 - [x] Implement endless runner logic
 - [x] Global leaderboard integration
-- [ ] Add pirate-themed music and sound effects
 - [ ] Add Power-Ups
+- [ ] Add pirate-themed music and sound effects
 
 ## 📜 License
 
