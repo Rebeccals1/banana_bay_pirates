@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "811936977284",
+    "firebase_url": "https://bananabaypirates-default-rtdb.firebaseio.com",
+    "project_id": "bananabaypirates",
+    "storage_bucket": "bananabaypirates.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811936977284:android:e4398b22b7438b224f4dd1",
+        "android_client_info": {
+          "package_name": "com.rebeccals.bb_pirates"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811936977284-fb9qifpeh269jgsi8jobg1ouapoaj6jo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rebeccals.bb_pirates",
+            "certificate_hash": "fb2f992c9726d7761be8a9ce13bf9467eae537df"
+          }
+        },
+        {
+          "client_id": "811936977284-ufnmbeq4d1r0vefevj86dkutr4bqr3gi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1Z3K7M-NHQLKQIEE9iZ6Zd9busjQZST0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811936977284-ufnmbeq4d1r0vefevj86dkutr4bqr3gi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "811936977284-bnvram30qfgdl3kovc79bhfklt9rrqg9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rebeccals.bbPirates"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
