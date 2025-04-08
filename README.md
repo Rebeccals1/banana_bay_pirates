@@ -2,7 +2,8 @@
 
 **Banana Bay Pirates** is a mobile endless runner game built with **Flutter**, where players explore the shores of Banana Bay to dodge deadly obstacles and beat their high scores! Login as a guest or sign in with Google to climb the leaderboard. Arrr you ready?
 
-![Banana Bay Pirates Gameplay Banner](banner-placeholder.png) <!-- Add your image path here -->
+<img src="https://github.com/Rebeccals1/banana_bay_pirates/raw/main/assets/images/pirate_logo.png" alt="Banana Bay Pirates Gameplay Banner" width="300"/>
+
 
 ## 🚀 Features
 
