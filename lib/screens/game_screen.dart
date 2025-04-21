@@ -1,15 +1,16 @@
-import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/game.dart';
 import '../game/runner_game.dart';
+import '../screens/widgets/game_ui/game_hud.dart';
+import '../screens/widgets/game_ui/pause_menu.dart';
+import '../screens/widgets/game_ui/game_over_modal.dart';
+import '../screens/widgets/game_ui/exit_confirmation_modal.dart';
 import '../services/score/score_service.dart';
 
 class GameScreen extends StatefulWidget {
   final String playerName;
 
-  const GameScreen({
-    super.key,
-    required this.playerName,
-  });
+  const GameScreen({super.key, required this.playerName});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -29,151 +30,59 @@ class _GameScreenState extends State<GameScreen> {
   void _initializeGame() {
     _game = RunnerGame(
       onGameOver: (score) async {
-        print('Game over with score: $score for player: ${widget.playerName}');
-
-        // Save score to Firebase with player name
         await _scoreService.saveScore(score, widget.playerName);
-
         if (!mounted) return;
 
-        setState(() {
-          _gameOver = true;
-        });
-
-        // Show game over dialog
-        showDialog(
+        setState(() => _gameOver = true);
+        showGameOverModal(
           context: context,
-          barrierDismissible: false,
-          builder: (context) => WillPopScope(
-            onWillPop: () async => false, // Prevent dialog dismissal with back button
-            child: AlertDialog(
-              title: const Text('Game Over'),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Player: ${widget.playerName}'),
-                  const SizedBox(height: 8),
-                  Text('Your score: $score'),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close dialog
-                    Navigator.of(context).pop(); // Return to home screen
-                  },
-                  child: const Text('Back to Menu'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close dialog
-                    setState(() {
-                      _gameOver = false;
-                      _initializeGame(); // Reinitialize the game
-                    });
-                  },
-                  child: const Text('Play Again'),
-                ),
-              ],
-            ),
-          ),
+          playerName: widget.playerName,
+          score: score,
+          onReplay: _resetGame,
         );
       },
     );
   }
 
+  void _resetGame() {
+    setState(() {
+      _gameOver = false;
+      _initializeGame();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // If game is over, allow back navigation
-        if (_gameOver) return true;
-
-        // Otherwise show confirmation dialog
-        final shouldPop = await showDialog<bool>(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Quit Game?'),
-            content: const Text('Are you sure you want to quit? Your progress will be lost.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('No'),
-              ),
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Yes'),
-              ),
-            ],
-          ),
-        );
-
-        return shouldPop ?? false;
+    return PopScope(
+      canPop: !_gameOver,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
+        final shouldExit = await showExitConfirmationModal(context);
+        if (shouldExit == true && context.mounted) {
+          Navigator.of(context).pop();
+        }
       },
       child: Scaffold(
         body: Stack(
           children: [
-            GameWidget(game: _game),
-            Positioned(
-              top: 40,
-              left: 20,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(
-                  'Player: ${widget.playerName}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            GameWidget(
+              game: _game,
+              overlayBuilderMap: {
+                'PauseOverlay': (_, __) => PauseMenu(game: _game),
+              },
             ),
-            // Back button
-            Positioned(
-              top: 40,
-              right: 20,
-              child: GestureDetector(
-                onTap: () async {
-                  final shouldPop = await showDialog<bool>(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Quit Game?'),
-                      content: const Text('Are you sure you want to quit? Your progress will be lost.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: const Text('No'),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: const Text('Yes'),
-                        ),
-                      ],
-                    ),
-                  );
-
-                  if (shouldPop == true && mounted) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 24,
-                  ),
-                ),
-              ),
+            GameHUD(
+              playerName: widget.playerName,
+              onPause: () {
+                _game.pauseEngine();
+                _game.overlays.add('PauseOverlay');
+              },
+              onExit: () async {
+                final shouldExit = await showExitConfirmationModal(context);
+                if (shouldExit == true && context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
             ),
           ],
         ),
@@ -181,4 +90,3 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 }
-

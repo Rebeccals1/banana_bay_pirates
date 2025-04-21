@@ -4,34 +4,45 @@ import 'package:flutter/material.dart';
 import 'runner_game.dart';
 import 'obstacle.dart';
 
-class Player extends SpriteAnimationComponent with CollisionCallbacks, HasGameRef<RunnerGame> {
-  // Player properties
+class Player extends SpriteAnimationComponent
+    with CollisionCallbacks, HasGameRef<RunnerGame> {
+  // Physics
   final double gravity = 1000;
   final double jumpForce = -500;
   double velocityY = 0;
+
+  // State
   bool isOnGround = true;
   Vector2 startPosition = Vector2.zero();
 
-  Player() : super(size: Vector2(80, 80), anchor: Anchor.bottomCenter);
+  Player() : super(size: Vector2(80, 80), anchor: Anchor.center);
 
   @override
   Future<void> onLoad() async {
-    // Set initial position
-    position = Vector2(game.size.x * 0.2, game.size.y * 0.8);
-    startPosition = position.clone();
+    _setStartPosition();
+    _addHitbox();
+    await _loadAnimation();
+    return super.onLoad();
+  }
 
-    // Add hitbox for collision detection
+  void _setStartPosition() {
+    position = Vector2(game.size.x * 0.2, game.size.y * 0.8 + 40); // 40 = half the height
+    startPosition = position.clone();
+  }
+
+  void _addHitbox() {
     add(RectangleHitbox(
       size: Vector2(40, 60),
       position: Vector2(12, 4),
       anchor: Anchor.bottomCenter,
     ));
+    add(RectangleHitbox()..debugMode = true); // Optional visual aid
+  }
 
-    add(RectangleHitbox()..debugMode = true);
-
-    // Load player animation
+  Future<void> _loadAnimation() async {
     try {
-      final spriteSheet = await game.images.load('player/player_spritesheet.png');
+      final spriteSheet =
+      await game.images.load('player/player_spritesheet.png');
       animation = SpriteAnimation.fromFrameData(
         spriteSheet,
         SpriteAnimationData.sequenced(
@@ -43,23 +54,26 @@ class Player extends SpriteAnimationComponent with CollisionCallbacks, HasGameRe
     } catch (e) {
       print('Error loading player animation: $e');
     }
-
-    return super.onLoad();
   }
 
   @override
   void update(double dt) {
     super.update(dt);
-
     if (game.isGameOver) return;
 
-    // Apply gravity
+    _applyGravity(dt);
+    _checkIfOnGround();
+  }
+
+  void _applyGravity(double dt) {
     velocityY += gravity * dt;
     position.y += velocityY * dt;
+  }
 
-    // Check if player is on ground
-    if (position.y >= game.size.y * 0.8) {
-      position.y = game.size.y * 0.8;
+  void _checkIfOnGround() {
+    final groundY = game.size.y * 0.8;
+    if (position.y >= groundY) {
+      position.y = groundY;
       velocityY = 0;
       isOnGround = true;
     }
@@ -83,24 +97,22 @@ class Player extends SpriteAnimationComponent with CollisionCallbacks, HasGameRe
     super.onCollision(intersectionPoints, other);
 
     if (other is Obstacle && !game.isGameOver) {
-      print('Collision with: ${other.runtimeType}');
+      print('💥 Player hit obstacle: ${other.runtimeType}');
       game.gameOver();
     }
   }
 
-  // Fallback render method if sprite loading fails
   @override
   void render(Canvas canvas) {
     super.render(canvas);
+    if (animation == null) _renderFallback(canvas);
+  }
 
-    if (animation == null) {
-      // Draw a simple rectangle as fallback
-      final paint = Paint()..color = Colors.red;
-      canvas.drawRect(
-        Rect.fromLTWH(0, 0, width, height),
-        paint,
-      );
-    }
+  void _renderFallback(Canvas canvas) {
+    final paint = Paint()..color = Colors.red;
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, width, height),
+      paint,
+    );
   }
 }
-

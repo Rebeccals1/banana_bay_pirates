@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/auth/auth_service.dart';
-import 'package:bb_pirates/widgets/home/home_portrait.dart';
-import 'package:bb_pirates/widgets/home/home_landscape.dart';
+import 'package:bb_pirates/screens/widgets/home/home_portrait.dart';
+import 'package:bb_pirates/screens/widgets/home/home_landscape.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

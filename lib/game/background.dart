@@ -9,8 +9,9 @@ class BackgroundComponent extends ParallaxComponent<RunnerGame> {
     // Load parallax background layers
     parallax = await Parallax.load(
       [
-        ParallaxImageData('sky.png'),
-        ParallaxImageData('ocean.png'),
+        ParallaxImageData('environment/background/sky.png'),
+        ParallaxImageData('environment/midground/ocean.png'),
+        ParallaxImageData('environment/foreground/palm_trees.png'),
       ],
       baseVelocity: Vector2(20, 0),
       velocityMultiplierDelta: Vector2(1.5, 0),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../services/auth/auth_service.dart';
+import '../../../services/auth/auth_service.dart';
 import '../../widgets/home/home_header.dart';
 import '../../widgets/home/home_profile.dart';
 import '../../widgets/home/home_buttons.dart';
-import '../../widgets/home/home_bottom_actions.dart';
-import '../../widgets/login/animated_logo_header.dart';
+import 'home_bottom_actions.dart';
+import '../login/animated_logo_header.dart';
 
 class HomePortraitLayout extends StatelessWidget {
   final AuthService authService;
