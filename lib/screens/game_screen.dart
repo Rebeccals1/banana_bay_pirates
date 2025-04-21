@@ -57,9 +57,13 @@ class _GameScreenState extends State<GameScreen> {
       canPop: !_gameOver,
       onPopInvoked: (didPop) async {
         if (didPop) return;
+
+        _game.pauseEngine();
         final shouldExit = await showExitConfirmationModal(context);
         if (shouldExit == true && context.mounted) {
           Navigator.of(context).pop();
+        } else {
+          _game.resumeEngine();
         }
       },
       child: Scaffold(
@@ -68,7 +72,22 @@ class _GameScreenState extends State<GameScreen> {
             GameWidget(
               game: _game,
               overlayBuilderMap: {
-                'PauseOverlay': (_, __) => PauseMenu(game: _game),
+                'PauseOverlay': (_, __) => PauseMenu(
+                  onResume: () {
+                    _game.overlays.remove('PauseOverlay');
+                    _game.resumeEngine();
+                  },
+                  onExit: () async {
+                    _game.overlays.remove('PauseOverlay');
+                    final shouldExit =
+                    await showExitConfirmationModal(context);
+                    if (shouldExit == true && context.mounted) {
+                      Navigator.of(context).pop();
+                    } else {
+                      _game.resumeEngine();
+                    }
+                  },
+                ),
               },
             ),
             GameHUD(
@@ -76,12 +95,6 @@ class _GameScreenState extends State<GameScreen> {
               onPause: () {
                 _game.pauseEngine();
                 _game.overlays.add('PauseOverlay');
-              },
-              onExit: () async {
-                final shouldExit = await showExitConfirmationModal(context);
-                if (shouldExit == true && context.mounted) {
-                  Navigator.of(context).pop();
-                }
               },
             ),
           ],

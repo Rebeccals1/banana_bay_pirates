@@ -63,7 +63,9 @@ flutter:
     - assets/images/
     - assets/images/obstacles/
     - assets/images/environment/
-    - assets/images/player/player_spritesheet.png
+    - assets/images/player/player_run.png
+    - assets/images/player/player_jump.png
+    - assets/images/player/player_fall.png
     - assets/images/environment/background/
     - assets/images/environment/foreground/
     - assets/images/environment/ground/

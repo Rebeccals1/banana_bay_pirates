@@ -1,33 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
 
 class PauseMenu extends StatelessWidget {
-  final Game game;
+  final VoidCallback onResume;
+  final VoidCallback onExit;
 
-  const PauseMenu({super.key, required this.game});
+  const PauseMenu({
+    super.key,
+    required this.onResume,
+    required this.onExit,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GestureDetector(
-        onTap: () {
-          game.overlays.remove('PauseOverlay');
-          game.resumeEngine();
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.75),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Text(
-            '⏸️ Game Paused\nTap to Resume',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-            ),
+      child: Card(
+        elevation: 10,
+        color: Colors.black.withOpacity(0.85),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Game Paused',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                onPressed: onResume,
+                icon: const Icon(Icons.play_arrow),
+                label: const Text('Resume'),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: onExit,
+                icon: const Icon(Icons.exit_to_app),
+                label: const Text('Exit Game'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                ),
+              ),
+            ],
           ),
         ),
       ),

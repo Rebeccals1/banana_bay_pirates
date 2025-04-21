@@ -6,7 +6,7 @@ import 'package:flame/collisions.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/input.dart';
-import 'player.dart';
+import 'player/player.dart';
 import 'obstacle.dart';
 import 'background.dart';
 import 'ground_component.dart';
