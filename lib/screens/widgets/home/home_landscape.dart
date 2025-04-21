@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../services/auth/auth_service.dart';
+import '../../../services/auth/auth_service.dart';
 import '../../widgets/home/home_header.dart';
-import '../../widgets/login/animated_logo_header.dart';
+import '../login/animated_logo_header.dart';
 import 'home_profile.dart';
 import 'home_buttons.dart';
 import 'home_bottom_actions.dart';

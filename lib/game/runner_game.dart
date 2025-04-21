@@ -6,21 +6,18 @@ import 'package:flame/collisions.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/input.dart';
-import 'player.dart';
+import 'player/player.dart';
 import 'obstacle.dart';
 import 'background.dart';
-import 'ground.dart';
+import 'ground_component.dart';
 import 'score_component.dart';
-
 
 class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisionDetection {
   final Function(int) onGameOver;
 
-  // Game components
   late Player player;
   late ScoreComponent scoreComponent;
 
-  // Game state
   bool isPlaying = false;
   bool isGameOver = false;
   double rawScore = 0;
@@ -34,23 +31,30 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
 
   @override
   Future<void> onLoad() async {
-    // Add background and ground
-    add(BackgroundComponent());
-    add(GroundComponent());
+    await initializeEnvironment();
+    await initializePlayer();
+    await initializeScoreUI();
 
-    // Add player
-    player = Player();
-    add(player);
-
-    // Add score display
-    scoreComponent = ScoreComponent();
-    add(scoreComponent);
-
-    // Start the game
     isPlaying = true;
     isGameOver = false;
 
     return super.onLoad();
+  }
+
+  Future<void> initializeEnvironment() async {
+    add(BackgroundComponent());
+    add(GroundComponent());
+    // Add platforms here if applicable
+  }
+
+  Future<void> initializePlayer() async {
+    player = Player();
+    add(player);
+  }
+
+  Future<void> initializeScoreUI() async {
+    scoreComponent = ScoreComponent();
+    add(scoreComponent);
   }
 
   @override
@@ -59,24 +63,34 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
 
     if (!isPlaying || isGameOver) return;
 
-    // Increase score over time
-    // 60 is ~1 pps, and 100 is ~1.6+ pps
-    rawScore += dt * (60 + (score / 50)); // Points per second - multiplier slowly increase with score
+    updateScore(dt);
+    updateSpeed();
+    handleObstacleSpawning(dt);
+  }
+
+  void updateScore(double dt) {
+    rawScore += dt * (60 + (score / 50));
     score = rawScore.toInt();
     scoreComponent.updateScore(score);
+  }
 
-    // Increase game speed over time
+  void updateSpeed() {
     speed = 300 + (score / 100);
+  }
 
-    // Spawn obstacles
+  void handleObstacleSpawning(double dt) {
     spawnTimer += dt;
     if (spawnTimer >= spawnInterval) {
       spawnTimer = 0;
-      spawnInterval = 0.5 + random.nextDouble() * 1.5; // Random interval between 0.5 and 2 seconds
 
-      // Create and add a new obstacle
-      final obstacle = Obstacle(speed: speed);
-      add(obstacle);
+      final minSpawn = 1.2;
+      final maxSpawn = 2.6;
+
+      // Clamp higher score = shorter spawn interval
+      final scale = (speed / 300).clamp(1.0, 2.0);
+      spawnInterval = (minSpawn + random.nextDouble() * (maxSpawn - minSpawn)) / scale;
+
+      add(Obstacle(speed: speed));
     }
   }
 
@@ -89,27 +103,25 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
 
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    if (event is KeyDownEvent) {
-      if (keysPressed.contains(LogicalKeyboardKey.space) ||
-          keysPressed.contains(LogicalKeyboardKey.arrowUp)) {
-        if (isPlaying && !isGameOver) {
-          player.jump();
-        }
-        return true;
+    if (event is KeyDownEvent &&
+        (keysPressed.contains(LogicalKeyboardKey.space) ||
+            keysPressed.contains(LogicalKeyboardKey.arrowUp))) {
+      if (isPlaying && !isGameOver) {
+        player.jump();
       }
+      return true;
     }
     return false;
   }
 
   void gameOver() {
-    if (isGameOver) return; // Prevent multiple game over calls
+    if (isGameOver) return;
 
     isPlaying = false;
     isGameOver = true;
 
     print('Game over called with score: $score');
 
-    // Delay the callback slightly to ensure the game state is updated
     Future.delayed(const Duration(milliseconds: 100), () {
       onGameOver(score);
     });
@@ -123,16 +135,13 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
     isPlaying = true;
     isGameOver = false;
 
-    // Remove all obstacles
     children.whereType<Obstacle>().forEach((obstacle) {
       obstacle.removeFromParent();
     });
 
-    // Reset player position
     player.reset();
-
-    // Reset score display
     scoreComponent.updateScore(0);
   }
 }
+
 

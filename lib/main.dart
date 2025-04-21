@@ -6,12 +6,12 @@ import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'services/auth/auth_service.dart';
-import 'package:bb_pirates/widgets/login/animated_logo_header.dart';
+import 'package:bb_pirates/screens/widgets/login/animated_logo_header.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 🔓 Allow all orientations across the app (dynamic switching)
+  // Allow all orientations across the app (portrait and landscape)
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.landscapeLeft,
@@ -45,10 +45,10 @@ class MyApp extends StatelessWidget {
 class AuthWrapper extends StatelessWidget {
   const AuthWrapper({super.key});
 
+  static final AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
-    final AuthService authService = AuthService();
-
     return StreamBuilder<User?>(
       stream: authService.authStateChanges,
       builder: (context, snapshot) {

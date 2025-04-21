@@ -1,5 +1,5 @@
 name: bb_pirates
-description: "A new Flutter project."
+description: "Set sail in this whimsical endless runner where you dodge obstacles, collect golden bananas, and chase high scores across the open sea! Play as a guest or sign in to save your progress and climb the ranks. Smooth controls, pirate vibes, and non-stop fun await in Banana Bay Pirates!"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -44,13 +44,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,9 +61,15 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - assets/images/player/player_spritesheet.png
     - assets/images/obstacles/
-
+    - assets/images/environment/
+    - assets/images/player/player_run.png
+    - assets/images/player/player_jump.png
+    - assets/images/player/player_fall.png
+    - assets/images/environment/background/
+    - assets/images/environment/foreground/
+    - assets/images/environment/ground/
+    - assets/images/environment/midground/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
