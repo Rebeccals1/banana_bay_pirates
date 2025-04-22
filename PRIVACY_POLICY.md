@@ -80,7 +80,7 @@ We respect your right to control your data. If you wish to have some or all of y
 To request data deletion:
 - Email us at **sorelle.git@gmail.com**
 - Include your User ID or registered email address
-- Specify which data you want deleted (e.g., game scores, email address)
+- Specify which data you want deleted (e.g., game scores)
 
 We will review and fulfill your request in accordance with our data handling policy, typically within 7 business days.
 
