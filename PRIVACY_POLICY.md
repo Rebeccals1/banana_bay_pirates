@@ -75,16 +75,14 @@ We take reasonable steps to protect your data using encryption, secure connectio
 
 ## 8. Data Deletion Requests
 
-We respect your right to control your data. If you wish to have some or all of your personal data removed from our servers—without deleting your entire account—you may submit a request by contacting us.
+We respect your right to control your data. If you wish to have some or all of your personal data removed from our servers, you may submit a request by contacting us.
 
 To request data deletion:
 - Email us at **sorelle.git@gmail.com**
-- Include your User ID or registered email address
-- Specify which data you want deleted (e.g., game scores)
+- Include your registered email address
+- Specify which data you want deleted (e.g., game score)
 
-We will review and fulfill your request in accordance with our data handling policy, typically within 7 business days.
-
-Please note: Deleting some data (like saved scores or game history) may impact your gameplay experience.
+We will review and fulfill your request in accordance with our data handling policy.
 
 ---
 
