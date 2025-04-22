@@ -63,7 +63,7 @@ We retain your data only as long as necessary to provide the game experience and
 ## 6. Your Choices
 
 - You may choose to play without creating an account (as a guest), but some features like score saving may be limited.
-- You may delete your account or request data removal by contacting us at **[sorelle.git@gmail.com]**.
+- You may delete your account or request data removal by contacting us at **sorelle.git@gmail.com**.
 
 ---
 
@@ -73,15 +73,30 @@ We take reasonable steps to protect your data using encryption, secure connectio
 
 ---
 
-## 8. Changes to This Policy
+## 8. Data Deletion Requests
+
+We respect your right to control your data. If you wish to have some or all of your personal data removed from our servers—without deleting your entire account—you may submit a request by contacting us.
+
+To request data deletion:
+- Email us at **sorelle.git@gmail.com**
+- Include your User ID or registered email address
+- Specify which data you want deleted (e.g., game scores, profile name, saved preferences)
+
+We will review and fulfill your request in accordance with our data handling policy, typically within 7 business days.
+
+Please note: Deleting some data (like saved scores or game history) may impact your gameplay experience.
+
+---
+
+## 9. Changes to This Policy
 
 We may update this Privacy Policy from time to time. Changes will be posted within the app or on our website. Continued use of the game after updates constitutes your acceptance of the new terms.
 
 ---
 
-## 9. Contact Us
+## 10. Contact Us
 
 If you have questions or concerns about this Privacy Policy, please contact us:
 
-📧 **[sorelle.git@gmail.com]**  
-🌐 **[www.rebeccals.com]**
+📧 **sorelle.git@gmail.com**  
+🌐 **www.rebeccals.com**
