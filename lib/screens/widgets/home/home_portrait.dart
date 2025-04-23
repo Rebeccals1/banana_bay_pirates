@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../services/auth/auth_service.dart';
-import '../../widgets/home/home_header.dart';
 import '../../widgets/home/home_profile.dart';
 import '../../widgets/home/home_buttons.dart';
 import 'home_bottom_actions.dart';
@@ -18,27 +17,22 @@ class HomePortraitLayout extends StatelessWidget {
         return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: IntrinsicHeight(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Animated Logo Header
-                    const Padding(
-                      padding: EdgeInsets.only(bottom: 20.0),
-                      child: AnimatedLogoHeader(),
-                    ),
-
-                    const SizedBox(height: 20),
-                    HomeUserProfile(authService: authService),
-                    const SizedBox(height: 40),
-                    HomeMainButtons(authService: authService),
-                    const SizedBox(height: 20),
-                    const Spacer(),
-                    HomeBottomActions(authService: authService),
-                  ],
-                ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 40.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 5.0),
+                    child: AnimatedLogoHeader(),
+                  ),
+                  const SizedBox(height: 5),
+                  HomeUserProfile(authService: authService),
+                  const SizedBox(height: 20),
+                  HomeMainButtons(authService: authService),
+                  const SizedBox(height: 20),
+                  HomeBottomActions(authService: authService),
+                ],
               ),
             ),
           ),
@@ -47,3 +41,4 @@ class HomePortraitLayout extends StatelessWidget {
     );
   }
 }
+

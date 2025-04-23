@@ -1,6 +1,5 @@
 // lib/widgets/animated_logo_header.dart
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AnimatedLogoHeader extends StatefulWidget {
   const AnimatedLogoHeader({super.key});

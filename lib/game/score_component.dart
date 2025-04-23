@@ -34,7 +34,6 @@ class ScoreComponent extends PositionComponent with HasGameRef<RunnerGame> {
 
   void updateScore(int newScore) {
     if (newScore != score) {
-      print('Score updated: $newScore');
       score = newScore;
     }
   }

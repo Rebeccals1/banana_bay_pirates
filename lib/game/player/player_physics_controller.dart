@@ -22,7 +22,7 @@ class PlayerPhysicsController {
         position: Vector2(12, 4),
         anchor: Anchor.bottomCenter,
       ))
-      ..add(RectangleHitbox()..debugMode = true);
+      ..add(RectangleHitbox()..debugMode = false);
   }
 
   void apply(Player player, double dt) {

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flame/game.dart';
 
 void showGameOverModal({
   required BuildContext context,
   required String playerName,
   required int score,
   required VoidCallback onReplay,
+  required Game game,
 }) {
+  game.pauseEngine(); // Pause here before modal
+
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -31,7 +35,7 @@ void showGameOverModal({
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(); // Close dialog
-            onReplay();
+            onReplay(); // Restart game
           },
           child: const Text('Play Again'),
         ),

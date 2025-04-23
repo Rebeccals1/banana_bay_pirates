@@ -54,7 +54,7 @@ class HomeBottomActions extends StatelessWidget {
             }
           },
           icon: const Icon(Icons.logout, color: Colors.white70),
-          label: const Text('Sign Out', style: TextStyle(color: Colors.white70)),
+          label: const Text('Sign Out', style: TextStyle(color: Colors.white)),
         ),
       ],
     );

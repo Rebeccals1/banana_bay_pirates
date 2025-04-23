@@ -32,7 +32,7 @@ class GroundComponent extends Component with HasGameRef<RunnerGame> {
       );
 
       // ✅ Add a hitbox to each tile (so the player can collide with them)
-      tile.add(RectangleHitbox()..debugMode = true);
+      tile.add(RectangleHitbox()..debugMode = false);
 
       groundTiles.add(tile);
       add(tile);
@@ -55,7 +55,7 @@ class GroundComponent extends Component with HasGameRef<RunnerGame> {
             .map((t) => t.position.x)
             .reduce((a, b) => a > b ? a : b);
 
-        tile.position.x = rightmostX + tileWidth;
+        tile.position.x = rightmostX + tileWidth - 20;
       }
     }
   }

@@ -6,7 +6,6 @@ import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'services/auth/auth_service.dart';
-import 'package:bb_pirates/screens/widgets/login/animated_logo_header.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

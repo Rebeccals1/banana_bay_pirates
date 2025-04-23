@@ -1,7 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import '../runner_game.dart';
-import '../obstacle.dart';
 import 'player_physics_controller.dart';
 import 'player_animation_controller.dart';
 import 'player_collision_handler.dart';
@@ -45,6 +44,8 @@ class Player extends SpriteAnimationComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
+    super.onCollision(points, other);  // Call the superclass method
     _collisions.handleCollision(this, other);
   }
+
 }

@@ -67,7 +67,7 @@ class LeaderboardScreen extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor:
-                      isTopThree ? Colors.amber.shade700 : Colors.deepPurple,
+                      isTopThree ? Colors.blueAccent.shade700 : Colors.teal,
                       child: Text(
                         '${index + 1}',
                         style: const TextStyle(

@@ -19,21 +19,26 @@ class _HomeScreenState extends State<HomeScreen> {
       body: OrientationBuilder(
         builder: (context, orientation) {
           final isPortrait = orientation == Orientation.portrait;
+          final backgroundImage = isPortrait
+              ? 'assets/images/home_bg_portrait.png'
+              : 'assets/images/home_bg_landscape.png';
+
           return Container(
+            width: double.infinity,
+            height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  isPortrait
-                      ? 'assets/images/home_bg_portrait.png'
-                      : 'assets/images/home_bg_landscape.png',
-                ),
+                image: AssetImage(backgroundImage),
                 fit: BoxFit.cover,
+                alignment: Alignment.center,
               ),
             ),
             child: SafeArea(
-              child: isPortrait
-                  ? HomePortraitLayout(authService: _authService)
-                  : HomeLandscapeLayout(authService: _authService),
+              child: SizedBox.expand(
+                child: isPortrait
+                    ? HomePortraitLayout(authService: _authService)
+                    : HomeLandscapeLayout(authService: _authService),
+              ),
             ),
           );
         },

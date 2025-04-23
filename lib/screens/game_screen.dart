@@ -39,6 +39,7 @@ class _GameScreenState extends State<GameScreen> {
           playerName: widget.playerName,
           score: score,
           onReplay: _resetGame,
+          game: _game, // Pass the game instance
         );
       },
     );

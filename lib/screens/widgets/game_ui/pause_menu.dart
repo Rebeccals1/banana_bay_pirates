@@ -42,7 +42,7 @@ class PauseMenu extends StatelessWidget {
                 icon: const Icon(Icons.exit_to_app),
                 label: const Text('Exit Game'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.amber,
                 ),
               ),
             ],
