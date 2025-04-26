@@ -2,26 +2,42 @@ import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'runner_game.dart';
 
-class GroundComponent extends Component with HasGameRef<RunnerGame> {
-  late final Sprite groundSprite;
+/// The scrolling ground layer of the game.
+/// Dynamically adjusts scroll speed based on game.score.
+class GroundComponent extends Component with HasGameReference<RunnerGame> {
+  late Sprite groundSprite;
   final List<SpriteComponent> groundTiles = [];
-  final double scrollSpeed = 300;
 
   late double tileWidth;
   late double groundHeight;
   late double groundTop;
 
+  bool _isInitialized = false;
+
   @override
   Future<void> onLoad() async {
-    groundTop = game.size.y * 0.8;
-    groundHeight = game.size.y - groundTop;
-
-    // Load the ground sprite
+    // Load the ground texture
     groundSprite = await Sprite.load('environment/ground/dunes_mid.png');
     tileWidth = groundSprite.srcSize.x;
+    _isInitialized = true;
+  }
 
-    // Calculate how many tiles are needed
-    final tilesNeeded = (game.size.x / tileWidth).ceil() + 2;
+  @override
+  void onGameResize(Vector2 canvasSize) {
+    super.onGameResize(canvasSize);
+    if (!_isInitialized) return;
+
+    // Remove any existing tiles before resizing
+    for (final tile in groundTiles) {
+      tile.removeFromParent();
+    }
+    groundTiles.clear();
+
+    // Calculate new layout
+    groundTop = canvasSize.y * 0.8;
+    groundHeight = canvasSize.y - groundTop;
+
+    final tilesNeeded = (canvasSize.x / tileWidth).ceil() + 2;
 
     double currentX = 0;
     for (int i = 0; i < tilesNeeded; i++) {
@@ -31,25 +47,24 @@ class GroundComponent extends Component with HasGameRef<RunnerGame> {
         size: Vector2(tileWidth, groundHeight),
       );
 
-      // ✅ Add a hitbox to each tile (so the player can collide with them)
       tile.add(RectangleHitbox()..debugMode = false);
 
       groundTiles.add(tile);
       add(tile);
       currentX += tileWidth;
     }
-
-    print('🟫 Ground added with ${groundTiles.length} tiles');
   }
 
   @override
   void update(double dt) {
     super.update(dt);
 
-    for (final tile in groundTiles) {
-      tile.position.x -= scrollSpeed * dt;
+    final double currentScrollSpeed = game.speed; // Dynamic scroll speed
 
-      // If the tile moves off-screen, reposition it to the right
+    for (final tile in groundTiles) {
+      tile.position.x -= currentScrollSpeed * dt;
+
+      // Recycle off-screen tiles
       if (tile.position.x + tileWidth <= 0) {
         final rightmostX = groundTiles
             .map((t) => t.position.x)

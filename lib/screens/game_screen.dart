@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
+
 import '../game/runner_game.dart';
 import '../screens/widgets/game_ui/game_hud.dart';
 import '../screens/widgets/game_ui/pause_menu.dart';
@@ -24,7 +26,27 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
+
+    // Force landscape orientation
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
     _initializeGame();
+  }
+
+  @override
+  void dispose() {
+    // Reset to all orientations when leaving
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+
+    super.dispose();
   }
 
   void _initializeGame() {
@@ -34,12 +56,13 @@ class _GameScreenState extends State<GameScreen> {
         if (!mounted) return;
 
         setState(() => _gameOver = true);
+
         showGameOverModal(
           context: context,
           playerName: widget.playerName,
           score: score,
           onReplay: _resetGame,
-          game: _game, // Pass the game instance
+          game: _game,
         );
       },
     );
@@ -61,6 +84,7 @@ class _GameScreenState extends State<GameScreen> {
 
         _game.pauseEngine();
         final shouldExit = await showExitConfirmationModal(context);
+
         if (shouldExit == true && context.mounted) {
           Navigator.of(context).pop();
         } else {
@@ -80,8 +104,8 @@ class _GameScreenState extends State<GameScreen> {
                   },
                   onExit: () async {
                     _game.overlays.remove('PauseOverlay');
-                    final shouldExit =
-                    await showExitConfirmationModal(context);
+
+                    final shouldExit = await showExitConfirmationModal(context);
                     if (shouldExit == true && context.mounted) {
                       Navigator.of(context).pop();
                     } else {

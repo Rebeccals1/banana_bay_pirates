@@ -11,40 +11,35 @@ class ScoreService {
 
   // 🔹 Delete duplicate scores based on email
   Future<void> deleteDuplicateScoresWithEmail() async {
-    try {
-      // Query all documents in the scores collection
-      QuerySnapshot snapshot = await _scoresRef.get();
+    // Query all documents in the scores collection
+    QuerySnapshot snapshot = await _scoresRef.get();
 
-      // Map to group documents by email
-      Map<String, List<DocumentSnapshot>> emailScores = {};
+    // Map to group documents by email
+    Map<String, List<DocumentSnapshot>> emailScores = {};
 
-      // Group documents by email, but only include documents where email is not null
-      for (var doc in snapshot.docs) {
-        String email = doc['email'];
-        if (email.isNotEmpty) {  // Only process documents with a valid email
-          if (!emailScores.containsKey(email)) {
-            emailScores[email] = [];
-          }
-          emailScores[email]!.add(doc);
+    // Group documents by email, but only include documents where email is not null
+    for (var doc in snapshot.docs) {
+      String email = doc['email'];
+      if (email.isNotEmpty) {  // Only process documents with a valid email
+        if (!emailScores.containsKey(email)) {
+          emailScores[email] = [];
+        }
+        emailScores[email]!.add(doc);
+      }
+    }
+
+    // Loop through each group of scores with the same email
+    emailScores.forEach((email, docs) {
+      if (docs.length > 1) {
+        // Sort the documents for the same email by 'timestamp' (or score if preferred)
+        docs.sort((a, b) => (b['timestamp'] as int).compareTo(a['timestamp'] as int));
+
+        // Keep the most recent document and delete the rest
+        for (int i = 1; i < docs.length; i++) {
+          _scoresRef.doc(docs[i].id).delete();
         }
       }
-
-      // Loop through each group of scores with the same email
-      emailScores.forEach((email, docs) {
-        if (docs.length > 1) {
-          // Sort the documents for the same email by 'timestamp' (or score if preferred)
-          docs.sort((a, b) => (b['timestamp'] as int).compareTo(a['timestamp'] as int));
-
-          // Keep the most recent document and delete the rest
-          for (int i = 1; i < docs.length; i++) {
-            _scoresRef.doc(docs[i].id).delete();
-            print('Deleted duplicate document: ${docs[i].id}');
-          }
-        }
-      });
-    } catch (e) {
-      print('Error cleaning up duplicates: $e');
-    }
+    });
   }
 
   // 🔹 Save score only if it's a new high score
@@ -56,6 +51,12 @@ class ScoreService {
         return;
       }
 
+      if (user.isAnonymous) {
+        print('Guest users cannot submit scores.');
+        return; // Skip write entirely
+      }
+
+      // Determine player name fallback
       String name = playerName;
       if (name.isEmpty) {
         if (user.displayName != null && user.displayName!.isNotEmpty) {
@@ -81,7 +82,7 @@ class ScoreService {
           'score': score,
           'userId': user.uid,
           'email': user.email ?? '',
-          'isGuest': user.isAnonymous,
+          'isGuest': false,
           'timestamp': DateTime.now().millisecondsSinceEpoch,
         });
       } else {

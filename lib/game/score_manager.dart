@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'runner_game.dart';
 
-class ScoreComponent extends PositionComponent with HasGameRef<RunnerGame> {
+class ScoreComponent extends PositionComponent with HasGameReference<RunnerGame> {
   int score = 0;
   late TextPaint textPaint;
 

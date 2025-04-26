@@ -1,4 +1,4 @@
-// lib/screens/login_screen.dart
+// ✅ login_screen.dart (Cleaned and SafeArea applied)
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth/auth_service.dart';
@@ -98,61 +98,33 @@ class _LoginScreenState extends State<LoginScreen> {
     final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.teal, Colors.green],
-              ),
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.teal, Colors.green],
             ),
-            child: SafeArea(
-              child: Center(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: isLandscape ? 900 : 600,
-                    ),
-                    child: isLandscape
-                        ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Expanded(child: AnimatedLogoHeader()),
-                        const SizedBox(width: 32),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: AuthCard(
-                              formKey: _formKey,
-                              emailController: _emailController,
-                              passwordController: _passwordController,
-                              isLogin: _isLogin,
-                              isLoading: _isLoading,
-                              errorMessage: _errorMessage,
-                              onSubmit: _submitForm,
-                              onToggleMode: () {
-                                setState(() {
-                                  _isLogin = !_isLogin;
-                                  _errorMessage = '';
-                                });
-                              },
-                              onGoogleSignIn: _signInWithGoogle,
-                              onGuestSignIn: _signInAnonymously,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                        : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const AnimatedLogoHeader(),
-                        const SizedBox(height: 32),
-                        AuthCard(
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: isLandscape ? 900 : 600,
+                ),
+                child: isLandscape
+                    ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Expanded(child: AnimatedLogoHeader()),
+                    const SizedBox(width: 32),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: AuthCard(
                           formKey: _formKey,
                           emailController: _emailController,
                           passwordController: _passwordController,
@@ -169,14 +141,38 @@ class _LoginScreenState extends State<LoginScreen> {
                           onGoogleSignIn: _signInWithGoogle,
                           onGuestSignIn: _signInAnonymously,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
+                )
+                    : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const AnimatedLogoHeader(),
+                    const SizedBox(height: 32),
+                    AuthCard(
+                      formKey: _formKey,
+                      emailController: _emailController,
+                      passwordController: _passwordController,
+                      isLogin: _isLogin,
+                      isLoading: _isLoading,
+                      errorMessage: _errorMessage,
+                      onSubmit: _submitForm,
+                      onToggleMode: () {
+                        setState(() {
+                          _isLogin = !_isLogin;
+                          _errorMessage = '';
+                        });
+                      },
+                      onGoogleSignIn: _signInWithGoogle,
+                      onGuestSignIn: _signInAnonymously,
+                    ),
+                  ],
                 ),
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

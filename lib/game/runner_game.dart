@@ -1,30 +1,32 @@
-import 'dart:math';
 import 'package:flame/game.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/material.dart';
 import 'package:flame/input.dart';
-import 'player/player.dart';
-import 'obstacle.dart';
-import 'background.dart';
-import 'ground_component.dart';
-import 'score_component.dart';
+import 'package:flutter/services.dart';
 
-class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisionDetection {
+import 'player/player.dart';
+import 'obstacle_manager.dart';
+import 'background.dart';
+import 'ground_manager.dart';
+import 'score_manager.dart';
+
+/// Main game class for Banana Bay Pirates.
+/// Handles player, environment, obstacles, and game state.
+class RunnerGame extends FlameGame
+    with TapDetector, KeyboardHandler, HasCollisionDetection {
   final Function(int) onGameOver;
 
   late Player player;
   late ScoreComponent scoreComponent;
+  late Obstacles obstacles;
 
   bool isPlaying = false;
   bool isGameOver = false;
+  bool airObstaclesEnabled = true; // 🔹 Toggle for parrot spawning
+
   double rawScore = 0;
   int score = 0;
   double speed = 300;
-  double spawnTimer = 0;
-  double spawnInterval = 1.5;
-  final Random random = Random();
 
   RunnerGame({required this.onGameOver});
 
@@ -33,6 +35,7 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
     await initializeEnvironment();
     await initializePlayer();
     await initializeScoreUI();
+    await initializeObstacles();
 
     isPlaying = true;
     isGameOver = false;
@@ -40,20 +43,31 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
     return super.onLoad();
   }
 
+  /// Adds background and ground layers to the game
   Future<void> initializeEnvironment() async {
     add(BackgroundComponent());
     add(GroundComponent());
-    // Add platforms here if applicable
   }
 
+  /// Creates and adds the main player character
   Future<void> initializePlayer() async {
     player = Player();
     add(player);
   }
 
+  /// Initializes the score UI display
   Future<void> initializeScoreUI() async {
     scoreComponent = ScoreComponent();
     add(scoreComponent);
+  }
+
+  /// Creates the obstacle system with optional air obstacles
+  Future<void> initializeObstacles() async {
+    obstacles = Obstacles(
+      speed: speed,
+      airObstaclesEnabled: airObstaclesEnabled,
+    );
+    add(obstacles);
   }
 
   @override
@@ -61,36 +75,23 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
     super.update(dt);
 
     if (!isPlaying || isGameOver) return;
-
     updateScore(dt);
     updateSpeed();
-    handleObstacleSpawning(dt);
+
+    // Keep obstacles updated with current speed
+    obstacles.speed = speed;
   }
 
+  /// Updates player score over time and based on speed
   void updateScore(double dt) {
     rawScore += dt * (60 + (score / 50));
     score = rawScore.toInt();
     scoreComponent.updateScore(score);
   }
 
+  /// Increases speed dynamically based on score
   void updateSpeed() {
     speed = 300 + (score / 100);
-  }
-
-  void handleObstacleSpawning(double dt) {
-    spawnTimer += dt;
-    if (spawnTimer >= spawnInterval) {
-      spawnTimer = 0;
-
-      final minSpawn = 1.2;
-      final maxSpawn = 2.6;
-
-      // Clamp higher score = shorter spawn interval
-      final scale = (speed / 300).clamp(1.0, 2.0);
-      spawnInterval = (minSpawn + random.nextDouble() * (maxSpawn - minSpawn)) / scale;
-
-      add(Obstacle(speed: speed));
-    }
   }
 
   @override
@@ -113,34 +114,35 @@ class RunnerGame extends FlameGame with TapDetector, KeyboardHandler, HasCollisi
     return false;
   }
 
+  /// Ends the game and notifies parent widget with score
   void gameOver() {
     if (isGameOver) return;
 
     isPlaying = false;
     isGameOver = true;
 
-    print('Game over called with score: $score');
-
     Future.delayed(const Duration(milliseconds: 100), () {
       onGameOver(score);
     });
   }
 
+  /// Resets the game for a fresh start
   void reset() {
     score = 0;
     speed = 300;
-    spawnTimer = 0;
-    spawnInterval = 1.5;
+    rawScore = 0;
     isPlaying = true;
     isGameOver = false;
 
-    children.whereType<Obstacle>().forEach((obstacle) {
-      obstacle.removeFromParent();
+    // Remove all game components except Player and Score
+    children.where((c) => c is! Player && c is! ScoreComponent).forEach((component) {
+      component.removeFromParent();
     });
 
     player.reset();
     scoreComponent.updateScore(0);
+
+    // Restart obstacles
+    initializeObstacles();
   }
 }
-
-
