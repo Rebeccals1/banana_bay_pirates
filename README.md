@@ -15,13 +15,11 @@
 ## Google Play:
 [https://play.google.com/store/apps/details?id=com.rebeccals.bb_pirates](https://play.google.com/store/apps/details?id=com.rebeccals.bb_pirates)
 <br></br>
-## Tech Stack
-| Technology         | Description                               |
-|----------------    |------------------------------------------ |
-| **Flutter**        | Cross-platform mobile development         |
-| **Firebase**       | Authentication, Firestore, Hosting        |
-| **Dart**           | Primary language for Flutter              |
-| **Google Sign-In** | Secure OAuth2 login for users             |
+## Built With
+- **Flutter** – cross-platform UI toolkit  
+- **Flame** – game engine for Flutter  
+- **Firebase** – Auth & Firestore for data storage  
+- **Dart** – programming language used with Flutter
 <br></br>
 ## Installation
 1. **Clone the repository**
