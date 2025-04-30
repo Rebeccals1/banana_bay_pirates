@@ -22,7 +22,6 @@
 | **Firebase**       | Authentication, Firestore, Hosting        |
 | **Dart**           | Primary language for Flutter              |
 | **Google Sign-In** | Secure OAuth2 login for users             |
-
 <br></br>
 ## Installation
 1. **Clone the repository**
