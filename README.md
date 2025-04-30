@@ -1,29 +1,27 @@
+<img src="https://github.com/Rebeccals1/banana_bay_pirates/blob/480e927030ee8d993c7985466240e04999312a86/assets/images/pirate_logo.png?raw=true" alt="Pirate Logo" width="250">
+
 # 🏴‍☠️ Banana Bay Pirates
-
 **Banana Bay Pirates** is a mobile endless runner game built with **Flutter**, where players sail the high seas, dodge deadly obstacles, and collect golden bananas to beat their high scores! Compete as a guest or sign in with Google to climb the leaderboard. Arrr you ready?
-
-![Banana Bay Pirates Gameplay Banner](banner-placeholder.png) <!-- Add your image path here -->
-
-## 🚀 Features
-
-- 🌊 **Endless Runner Mechanics** – Play endlessly with increasing difficulty
-- 🏆 **Score Tracking** – Compete against your own scores or as a guest
-- 🔐 **Firebase Authentication** – Login via Google or continue as a guest
-- 📊 **Leaderboard (Coming Soon)** – Global leaderboard to show top pirates
-- 💥 **Obstacles and Power-Ups** – Navigate cannonballs, whirlpools, and more!
-- 🎮 **Smooth Controls** – Swipe and tap your way through the open sea
-
-## 📱 Tech Stack
-
-| Technology     | Description                              |
-|----------------|------------------------------------------|
-| **Flutter**    | Cross-platform mobile development         |
-| **Firebase**   | Authentication, Firestore, Hosting        |
-| **Dart**       | Primary language for Flutter              |
-| **Google Sign-In** | Secure OAuth2 login for users         |
-
-## 🧭 Installation
-
+<br></br>
+## Features
+- 🦜 Randomized flying parrot and ground obstacle spawning  
+- 📈 Real-time score tracking and high score persistence  
+- 🔥 Adaptive difficulty as the game progresses  
+- 🧑‍🚀 Guest and Google sign-in support using Firebase  
+- 🌐 Firestore integration for storing scores and player data  
+- 🎨 Vibrant hand-crafted visuals and pixel art  
+- 📱 Optimized for Android devices
+<br></br>
+## Google Play:
+[https://play.google.com/store/apps/details?id=com.rebeccals.bb_pirates](https://play.google.com/store/apps/details?id=com.rebeccals.bb_pirates)
+<br></br>
+## Built With
+- **Flutter** – cross-platform UI toolkit  
+- **Flame** – game engine for Flutter  
+- **Firebase** – Auth & Firestore for data storage  
+- **Dart** – programming language used with Flutter
+<br></br>
+## Installation
 1. **Clone the repository**
 
 ```bash
@@ -42,55 +40,20 @@ flutter pub get
 ```bash
 flutter run
 ```
-
 Make sure your emulator or device is connected!
-
-## 🔑 Firebase Setup
-
+<br></br>
+## Firebase Setup
 Before running the app, set up Firebase for Android and iOS:
-
 - Add `google-services.json` (Android) and `GoogleService-Info.plist` (iOS)
 - Enable **Authentication** (Google Sign-In & Anonymous)
 - Configure Firestore for saving scores and user data
-
-## 📂 Project Structure
-
-```
-lib/
-├── main.dart
-├── screens/
-│   ├── home_screen.dart
-│   ├── game_screen.dart
-│   └── leaderboard_screen.dart
-├── widgets/
-│   └── pirate_controls.dart
-├── services/
-│   └── firebase_auth_service.dart
-├── models/
-│   └── player_score.dart
-```
-
-## 💡 Roadmap
-
-- [x] Add Firebase Authentication (Google + Guest)
-- [x] Implement endless runner logic
-- [ ] Add pirate-themed music and sound effects
-- [ ] Global leaderboard integration
-- [ ] Skins and customizations for your pirate ship
-- [ ] Multiplayer challenge mode
-
-## 🏴‍☠️ Meet the Crew
-
-**Rebecca L. Smith**  
-🎓 Computer Science Major at Cal Poly Pomona  
-🎮 Passionate about mobile games, UI/UX, and bringing ideas to life through code  
-
-[![LinkedIn](https://img.shields.io/badge/Rebecca_LinkedIn-blue?logo=linkedin)](https://www.linkedin.com/in/rebeccalsmithdev)
-
-## 🤝 Contributions
-
-Want to contribute a pirate skin or help with gameplay improvements? Pull requests are welcome! For major changes, please open an issue first to discuss your ideas.
-
-## 📜 License
-
+<br></br>
+### 🎨 Pixel Art Attribution
+Special thanks to the following talented pixel artists whose assets helped bring *Banana Bay Pirates* to life:
+- [SeethingSwarm](https://seethingswarm.itch.io/) — for vibrant and animated sprites
+- [Tom (TVDM1986)](https://tvdm1986.itch.io/) — for detailed environment tiles and objects
+- [Anokolisa](https://anokolisa.itch.io/) — for stylish character and effect designs
+We appreciate their incredible work and contributions to the indie game development community.
+<br></br>
+## License
 This project is licensed under the [MIT License](LICENSE).
