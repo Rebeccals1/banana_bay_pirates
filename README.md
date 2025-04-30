@@ -56,5 +56,4 @@ Special thanks to the following talented pixel artists whose assets helped bring
 We appreciate their incredible work and contributions to the indie game development community.
 <br></br>
 ## License
-
 This project is licensed under the [MIT License](LICENSE).
