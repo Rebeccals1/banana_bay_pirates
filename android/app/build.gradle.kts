@@ -18,7 +18,7 @@ android {
     namespace = "com.rebeccals.bb_pirates"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.2.12479018"
-    compileSdkVersion = 34
+    compileSdkVersion = "34"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
