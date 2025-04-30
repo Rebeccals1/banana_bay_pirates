@@ -1,8 +1,7 @@
+<img src="https://github.com/Rebeccals1/banana_bay_pirates/blob/480e927030ee8d993c7985466240e04999312a86/assets/images/pirate_logo.png?raw=true" alt="Pirate Logo" width="250">
+
 # 🏴‍☠️ Banana Bay Pirates
-
 **Banana Bay Pirates** is a mobile endless runner game built with **Flutter**, where players sail the high seas, dodge deadly obstacles, and collect golden bananas to beat their high scores! Compete as a guest or sign in with Google to climb the leaderboard. Arrr you ready?
-
-![Banana Bay Pirates Gameplay Banner](banner-placeholder.png) <!-- Add your image path here -->
 
 ## 🚀 Features
 
@@ -53,22 +52,6 @@ Before running the app, set up Firebase for Android and iOS:
 - Enable **Authentication** (Google Sign-In & Anonymous)
 - Configure Firestore for saving scores and user data
 
-## 📂 Project Structure
-
-```
-lib/
-├── main.dart
-├── screens/
-│   ├── home_screen.dart
-│   ├── game_screen.dart
-│   └── leaderboard_screen.dart
-├── widgets/
-│   └── pirate_controls.dart
-├── services/
-│   └── firebase_auth_service.dart
-├── models/
-│   └── player_score.dart
-```
 
 ## 💡 Roadmap
 
@@ -79,17 +62,6 @@ lib/
 - [ ] Skins and customizations for your pirate ship
 - [ ] Multiplayer challenge mode
 
-## 🏴‍☠️ Meet the Crew
-
-**Rebecca L. Smith**  
-🎓 Computer Science Major at Cal Poly Pomona  
-🎮 Passionate about mobile games, UI/UX, and bringing ideas to life through code  
-
-[![LinkedIn](https://img.shields.io/badge/Rebecca_LinkedIn-blue?logo=linkedin)](https://www.linkedin.com/in/rebeccalsmithdev)
-
-## 🤝 Contributions
-
-Want to contribute a pirate skin or help with gameplay improvements? Pull requests are welcome! For major changes, please open an issue first to discuss your ideas.
 
 ## 📜 License
 
