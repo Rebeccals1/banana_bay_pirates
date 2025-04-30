@@ -25,7 +25,7 @@ class PlayerAnimationController {
       spriteSheetJump,
       SpriteAnimationData.sequenced(
         amount: 1,
-        textureSize: Vector2(80, 80),
+        textureSize: Vector2(70, 80),
         stepTime: 0.1,
         loop: false,
       ),
@@ -35,7 +35,7 @@ class PlayerAnimationController {
       spriteSheetFall,
       SpriteAnimationData.sequenced(
         amount: 1,
-        textureSize: Vector2(80, 80),
+        textureSize: Vector2(70, 80),
         stepTime: 0.1,
         loop: false,
       ),

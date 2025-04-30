@@ -1,4 +1,3 @@
-// lib/screens/leaderboard_screen.dart
 import 'package:flutter/material.dart';
 import '../services/score/score_service.dart';
 import '../models/score.dart';
@@ -17,6 +16,7 @@ class LeaderboardScreen extends StatelessWidget {
         foregroundColor: Colors.white,
       ),
       body: Container(
+        // 🟣 Background gradient now covers full screen
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -24,78 +24,83 @@ class LeaderboardScreen extends StatelessWidget {
             colors: [Colors.deepPurple, Colors.purple],
           ),
         ),
-        child: FutureBuilder<List<Score>>(
-          future: scoreService.getTopScores(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        child: SafeArea(
+          child: FutureBuilder<List<Score>>(
+            future: scoreService.getTopScores(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  'Error loading scores: ${snapshot.error}',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              );
-            }
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    'Error loading scores: ${snapshot.error}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                );
+              }
 
-            final scores = snapshot.data ?? [];
+              final scores = snapshot.data ?? [];
 
-            if (scores.isEmpty) {
-              return const Center(
-                child: Text(
-                  'No scores yet. Be the first to play! 🏴‍☠️',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              );
-            }
+              if (scores.isEmpty) {
+                return const Center(
+                  child: Text(
+                    'No scores yet. Be the first to play! 🏴‍☠️',
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                );
+              }
 
-            return ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: scores.length,
-              itemBuilder: (context, index) {
-                final score = scores[index];
-                final isTopThree = index < 3;
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: scores.length,
+                itemBuilder: (context, index) {
+                  final score = scores[index];
+                  final isTopThree = index < 3;
 
-                return Card(
-                  elevation: isTopThree ? 8 : 2,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  color: isTopThree
-                      ? Colors.amber.withOpacity(0.85)
-                      : Colors.white.withOpacity(0.9),
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor:
-                      isTopThree ? Colors.amber.shade700 : Colors.deepPurple,
-                      child: Text(
-                        '${index + 1}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                  return Card(
+                    elevation: isTopThree ? 8 : 2,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    color: isTopThree
+                        ? Colors.amber.withOpacity(0.85)
+                        : Colors.white.withOpacity(0.9),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: isTopThree
+                            ? Colors.blueAccent.shade700
+                            : Colors.teal,
+                        child: Text(
+                          '${index + 1}',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        score.playerName,
+                        style: TextStyle(
+                          fontWeight: isTopThree
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                        ),
+                      ),
+                      trailing: Text(
+                        '${score.score}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: isTopThree
+                              ? FontWeight.bold
+                              : FontWeight.normal,
                         ),
                       ),
                     ),
-                    title: Text(
-                      score.playerName,
-                      style: TextStyle(
-                        fontWeight:
-                        isTopThree ? FontWeight.bold : FontWeight.normal,
-                      ),
-                    ),
-                    trailing: Text(
-                      '${score.score}',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight:
-                        isTopThree ? FontWeight.bold : FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            );
-          },
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );

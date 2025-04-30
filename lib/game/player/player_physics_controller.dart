@@ -16,13 +16,13 @@ class PlayerPhysicsController {
   }
 
   void addHitbox(Player player) {
-    player
-      ..add(RectangleHitbox(
-        size: Vector2(40, 60),
-        position: Vector2(12, 4),
-        anchor: Anchor.bottomCenter,
-      ))
-      ..add(RectangleHitbox()..debugMode = true);
+    player.add(
+      RectangleHitbox.relative(
+        Vector2(0.5, 1), // width: 30% of sprite, height: 45%
+        parentSize: player.size,
+        position: Vector2(22, 0.5), // shifts it right and down a bit
+      )..debugMode = false,
+    );
   }
 
   void apply(Player player, double dt) {

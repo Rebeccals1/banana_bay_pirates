@@ -1,16 +1,17 @@
 # 🏴‍☠️ Banana Bay Pirates
 
-**Banana Bay Pirates** is a mobile endless runner game built with **Flutter**, where players explore the shores of Banana Bay to dodge deadly obstacles and beat their high scores! Login as a guest or sign in with Google to climb the leaderboard. Arrr you ready?
+**Banana Bay Pirates** is a mobile endless runner game built with **Flutter**, where players sail the high seas, dodge deadly obstacles, and collect golden bananas to beat their high scores! Compete as a guest or sign in with Google to climb the leaderboard. Arrr you ready?
 
-<img src="https://github.com/Rebeccals1/banana_bay_pirates/raw/main/assets/images/pirate_logo.png" alt="Banana Bay Pirates Gameplay Banner" width="300"/>
-
+![Banana Bay Pirates Gameplay Banner](banner-placeholder.png) <!-- Add your image path here -->
 
 ## 🚀 Features
 
-- **Endless Runner Mechanics** – Play endlessly with increasing difficulty
-- **Score Tracking** – Compete against your own scores or as a guest
-- **Firebase Authentication** – Login via Google or continue as a guest
-- **Leaderboard** – Global leaderboard to show top pirates
+- 🌊 **Endless Runner Mechanics** – Play endlessly with increasing difficulty
+- 🏆 **Score Tracking** – Compete against your own scores or as a guest
+- 🔐 **Firebase Authentication** – Login via Google or continue as a guest
+- 📊 **Leaderboard (Coming Soon)** – Global leaderboard to show top pirates
+- 💥 **Obstacles and Power-Ups** – Navigate cannonballs, whirlpools, and more!
+- 🎮 **Smooth Controls** – Swipe and tap your way through the open sea
 
 ## 📱 Tech Stack
 
@@ -52,13 +53,43 @@ Before running the app, set up Firebase for Android and iOS:
 - Enable **Authentication** (Google Sign-In & Anonymous)
 - Configure Firestore for saving scores and user data
 
+## 📂 Project Structure
+
+```
+lib/
+├── main.dart
+├── screens/
+│   ├── home_screen.dart
+│   ├── game_screen.dart
+│   └── leaderboard_screen.dart
+├── widgets/
+│   └── pirate_controls.dart
+├── services/
+│   └── firebase_auth_service.dart
+├── models/
+│   └── player_score.dart
+```
+
 ## 💡 Roadmap
 
 - [x] Add Firebase Authentication (Google + Guest)
 - [x] Implement endless runner logic
-- [x] Global leaderboard integration
-- [ ] Add Power-Ups
 - [ ] Add pirate-themed music and sound effects
+- [ ] Global leaderboard integration
+- [ ] Skins and customizations for your pirate ship
+- [ ] Multiplayer challenge mode
+
+## 🏴‍☠️ Meet the Crew
+
+**Rebecca L. Smith**  
+🎓 Computer Science Major at Cal Poly Pomona  
+🎮 Passionate about mobile games, UI/UX, and bringing ideas to life through code  
+
+[![LinkedIn](https://img.shields.io/badge/Rebecca_LinkedIn-blue?logo=linkedin)](https://www.linkedin.com/in/rebeccalsmithdev)
+
+## 🤝 Contributions
+
+Want to contribute a pirate skin or help with gameplay improvements? Pull requests are welcome! For major changes, please open an issue first to discuss your ideas.
 
 ## 📜 License
 

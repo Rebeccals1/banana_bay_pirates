@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../services/auth/auth_service.dart';
-import '../../widgets/home/home_header.dart';
 import '../login/animated_logo_header.dart';
 import 'home_profile.dart';
 import 'home_buttons.dart';
@@ -20,20 +19,20 @@ class HomeLandscapeLayout extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const AnimatedLogoHeader(),
-              const SizedBox(height: 20),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
+              const SizedBox(height: 5),
               HomeUserProfile(authService: authService),
             ],
           ),
         ),
         Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(5.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 HomeMainButtons(authService: authService),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
                 HomeBottomActions(authService: authService),
               ],
             ),

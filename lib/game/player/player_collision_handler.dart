@@ -1,11 +1,13 @@
 import 'package:flame/components.dart';
-import '../obstacle.dart';
+import '../obstacles/ground_obstacle_spawner.dart';
+import '../obstacles/parrot_spawner.dart';
 import 'player.dart';
 
 class PlayerCollisionHandler {
   void handleCollision(Player player, PositionComponent other) {
-    if (other is Obstacle && !player.gameRef.isGameOver) {
-      print('💥 Player hit: ${other.runtimeType}');
+    final isObstacle = other is GroundObstacle || other is Parrot;
+
+    if (isObstacle && !player.gameRef.isGameOver) {
       player.gameRef.gameOver();
     }
   }
