@@ -9,8 +9,8 @@
 - 🏆 **Score Tracking** – Compete against your own scores or as a guest
 - 🔐 **Firebase Authentication** – Login via Google or continue as a guest
 - 📊 **Leaderboard (Coming Soon)** – Global leaderboard to show top pirates
-- 💥 **Avoid Obstacles** – Navigate through mines, crates and more!
-- 🎮 **Smooth Controls** – Swipe and tap your way through the open sea
+- 💥 **Obstacles** – Navigate through mines, crates and more!
+- 🎮 **Smooth Controls** – Simple tap commands to avoid obstacles.
 
 ## 📱 Tech Stack
 
