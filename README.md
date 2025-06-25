@@ -9,7 +9,6 @@
 - 🔥 Adaptive difficulty as the game progresses  
 - 🧑‍🚀 Guest and Google sign-in support using Firebase  
 - 🌐 Firestore integration for storing scores and player data  
-- 🎨 Vibrant hand-crafted visuals and pixel art  
 - 📱 Optimized for Android devices
 <br></br>
 ## Google Play:
